@@ -12,6 +12,8 @@
         <module>starter-web</module>
         <module>simple</module>
         <module>currency-rates-api</module>
+        <module>core-bean</module>
+        <module>console-or-web</module>
     </modules>
 
 
