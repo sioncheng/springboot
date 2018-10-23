@@ -4,6 +4,9 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.ResourceBanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.io.ClassPathResource;
@@ -40,6 +43,18 @@ public class MainApp {
 
     public static void main(String []args) {
         SpringApplication springApplication = new SpringApplication(MainApp.class);
+
+        springApplication.addListeners(new ApplicationListener<ApplicationEvent>() {
+            public void onApplicationEvent(ApplicationEvent applicationEvent) {
+                System.out.println("====== anonymous application listener # onApplicationEvent ");
+            }
+        });
+
+        springApplication.addInitializers(new ApplicationContextInitializer<ConfigurableApplicationContext>() {
+            public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
+                System.out.println("====== anonymous application context initializer # initialize");
+            }
+        });
 
         springApplication.setBanner(new ResourceBanner(new ClassPathResource("banner.txt")));
 
