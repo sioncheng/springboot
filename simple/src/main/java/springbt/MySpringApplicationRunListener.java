@@ -35,6 +35,18 @@ public class MySpringApplicationRunListener implements SpringApplicationRunListe
         printEvent("context prepared");
     }
 
+    public void failed(ConfigurableApplicationContext context, Throwable exception) {
+        printEvent("failed");
+    }
+
+    public void running(ConfigurableApplicationContext context) {
+        printEvent("running");
+    }
+
+    public void started(ConfigurableApplicationContext context) {
+        printEvent("started");
+    }
+
     private void printEvent(String event) {
         System.out.println("====== " + event);
     }
