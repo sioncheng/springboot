@@ -22,6 +22,7 @@
         <module>console-or-web</module>
         <module>apm</module>
         <module>book-pub</module>
+        <module>db-count-starter</module>
     </modules>
 
 
