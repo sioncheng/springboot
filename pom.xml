@@ -23,6 +23,8 @@
         <module>apm</module>
         <module>book-pub</module>
         <module>db-count-starter</module>
+        <module>auto-conf</module>
+        <module>auto-conf-apply</module>
     </modules>
 
 
