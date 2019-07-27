@@ -25,6 +25,8 @@
         <module>db-count-starter</module>
         <module>auto-conf</module>
         <module>auto-conf-apply</module>
+        <module>alias-for</module>
+        <module>env</module>
     </modules>
 
 
