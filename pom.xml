@@ -27,6 +27,7 @@
         <module>auto-conf-apply</module>
         <module>alias-for</module>
         <module>env</module>
+        <module>state-machine</module>
     </modules>
 
 
