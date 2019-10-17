@@ -2,6 +2,7 @@ package com.github.sioncheng.sb.statemachine;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.config.EnableStateMachine;
+import org.springframework.statemachine.config.EnableStateMachineFactory;
 import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
@@ -9,7 +10,7 @@ import org.springframework.statemachine.config.builders.StateMachineTransitionCo
 import java.util.EnumSet;
 
 @Configuration
-@EnableStateMachine
+@EnableStateMachineFactory
 public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<State, Event> {
 
     @Override
@@ -31,6 +32,12 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<State,
                 .source(State.RUNNABLE)
                 .target(State.BLOCKED)
                 .event(Event.LOCK)
+                //
+                .and()
+                .withExternal()
+                .source(State.RUNNABLE)
+                .target(State.TERMINATED)
+                .event(Event.COMPLETION)
                 //
                 .and()
                 .withExternal()

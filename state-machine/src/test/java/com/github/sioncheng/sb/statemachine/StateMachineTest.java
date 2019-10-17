@@ -1,48 +1,57 @@
 package com.github.sioncheng.sb.statemachine;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.statemachine.StateMachine;
-import org.springframework.statemachine.config.StateMachineBuilder;
+import org.springframework.statemachine.config.StateMachineFactory;
 import org.springframework.statemachine.persist.StateMachinePersister;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = MainApp.class)
 public class StateMachineTest {
 
     @Autowired
     private StateMachinePersister<State, Event, Integer> persister;
 
     @Autowired
-    private StateMachineBuilder.Builder<State, Event> stateEventBuilder;
+    private StateMachineFactory<State, Event> stateMachineFactory;
 
 
     private int defaultTid = 123;
 
     @Test
     public void testNewToRunnable() {
-        StateMachine<State, Event> stateMachine = stateEventBuilder.build();
+        StateMachine<State, Event> stateMachine = stateMachineFactory.getStateMachine();
         stateMachine.start();
         stateMachine.sendEvent(Event.START);
+
         Assert.assertEquals(State.RUNNABLE, stateMachine.getState().getId());
     }
 
+
     @Test
-    public void testRunnableToBlock() throws Exception {
-        StateMachine<State, Event> stateMachine1 = stateEventBuilder.build();
+    public void testRunnableToBlock() {
+        StateMachine<State, Event> stateMachine = stateMachineFactory.getStateMachine();
+        stateMachine.start();
+        stateMachine.sendEvent(Event.START);
+        stateMachine.sendEvent(Event.LOCK);
 
-        stateMachine1.start();
-        stateMachine1.sendEvent(Event.START);
-        stateMachine1.sendEvent(Event.LOCK);
-        Assert.assertEquals(State.BLOCKED, stateMachine1.getState().getId());
+        Assert.assertEquals(State.BLOCKED, stateMachine.getState().getId());
 
-        persister.persist(stateMachine1, defaultTid);
+    }
+
+    @Test
+    public void testBlockToRunnable() {
+        StateMachine<State, Event> stateMachine = stateMachineFactory.getStateMachine();
+        stateMachine.start();
+        stateMachine.sendEvent(Event.START);
+        stateMachine.sendEvent(Event.LOCK);
+        stateMachine.sendEvent(Event.UNLOCK);
+
+        Assert.assertEquals(State.RUNNABLE, stateMachine.getState().getId());
     }
 }
