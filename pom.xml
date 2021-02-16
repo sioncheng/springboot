@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.3.3.RELEASE</version>
     </parent>
 
     <groupId>com.github.sioncheng</groupId>
@@ -32,27 +32,16 @@
 
 
     <properties>
-        <spring.boot.version>2.0.4.RELEASE</spring.boot.version>
+        <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
     </properties>
 
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-                <version>${spring.boot.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring.boot.version}</version>
+                <groupId>com.github.sioncheng</groupId>
+                <artifactId>auto-conf</artifactId>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
